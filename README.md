@@ -57,12 +57,9 @@
 - [x] Testene skal kjøre på Github Actions
 
 #### Bør-ha:
-- [ ] Github Actions bør beregne testcoverage. Testdekningen bør være over 50%. Bruk `collectCoverageFrom` for å inkludere *alle* filer. Kun genererte filer som `coverage` og `dist` skal ekskluderes
-  - Vi har fått en rabattkode som gjør det mulig å benytter coveralls. Du kan bruke coveralls eller `jest-coverage-report-action`
-  - Om dere bruker coveralls og ikke får til å laste opp coverage for både `client` og `server` er det tilstrekkelig å laste opp for én. Men pass på at `npm test` genererer rapport for begge!
+- [ ] Github Actions bør beregne testcoverage. Testdekningen bør være over 50%. Bruk `collectCoverageFrom` for å inkludere *alle* filer. Kun genererte filer som `coverage` og `dist` skal ekskluderes.
 - [ ] Brukere bør alltid se listen over artikler når de navigerer seg rundt på sidene
 - [ ] Brukere kan logge seg på med mer enn én OpenID Connect Provider (for eksempel Entra ID, Facebook, LinkedIn, GitHub)
-  - NB: Microsoft har endret Entra ID. Dette er derfor ikke lenger et forventet krav, men vil gi bonuspoeng som kan kompensere for andre feil
 
 
 

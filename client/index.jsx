@@ -605,13 +605,17 @@ function Profile({ user }) {
 		<div className="profile-container">
 			<h1>Profile Page</h1>
 			{profile && (
-				<div>
-					<p>Name: {profile.name}</p>
-					<p>Email: {profile.email}</p>
-					<img src={profile.picture} alt="Profile" />
+				<div className="profile-info">
+					{profile.picture && <img src={profile.picture} alt="Profile" className="profile-picture" />}
+					<p>
+						<strong>Name:</strong> {profile.name}
+					</p>
+					<p>
+						<strong>Email:</strong> {profile.email}
+					</p>
 				</div>
 			)}
-			<button onClick={() => navigate("/")} className="primary-button">
+			<button onClick={() => navigate("/")} className="primary-button full-width">
 				Back
 			</button>
 		</div>
