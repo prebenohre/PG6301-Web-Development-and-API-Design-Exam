@@ -146,7 +146,6 @@ function App() {
 // ===========================
 // Custom Hook: useLoader
 // ===========================
-
 function useLoader(loadingFn) {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState();
@@ -173,7 +172,6 @@ function useLoader(loadingFn) {
 // ===========================
 // LoginCallback Component
 // ===========================
-
 function LoginCallback({ setUser }) {
 	const navigate = useNavigate();
 
@@ -216,7 +214,6 @@ function LoginCallback({ setUser }) {
 // ===========================
 // Login Component
 // ===========================
-
 function Login() {
 	const navigate = useNavigate();
 
@@ -253,9 +250,9 @@ function Login() {
 // ===========================
 // NewsList Component
 // ===========================
-
 function NewsList({ user, articles, setArticles }) {
 	const navigate = useNavigate();
+	const [expandedArticles, setExpandedArticles] = useState({});
 	const { loading, error, reload } = useLoader(async () => {
 		const response = await fetch("/api/news");
 		if (!response.ok) throw new Error("Failed to fetch news articles");
@@ -278,8 +275,18 @@ function NewsList({ user, articles, setArticles }) {
 		}
 	};
 
+	const toggleArticle = id => {
+		setExpandedArticles(prev => ({
+			...prev,
+			[id]: !prev[id],
+		}));
+	};
+
 	if (loading) return <div>Loading...</div>;
 	if (error) return <div>Error loading news articles: {error.message}</div>;
+
+	// Sorter artiklene slik at de nyeste vises først
+	const sortedArticles = [...articles].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
 	return (
 		<div className="news-list-container">
@@ -292,41 +299,63 @@ function NewsList({ user, articles, setArticles }) {
 				)}
 			</div>
 			<div className="news-container">
-				{articles.length > 0 ? (
-					articles.map(article => (
+				{sortedArticles.length > 0 ? (
+					sortedArticles.map(article => (
 						<div key={article._id} className="news-item">
-							<div className="news-header">
+							<div className="news-header" onClick={() => toggleArticle(article._id)}>
 								<h2>{article.title}</h2>
 								{user && article.author === user && (
 									<div className="news-actions">
-										<button onClick={() => navigate(`/editarticle/${article._id}`)} className="icon-button">
+										<button
+											onClick={e => {
+												e.stopPropagation();
+												navigate(`/editarticle/${article._id}`);
+											}}
+											className="icon-button"
+										>
 											✏️
 										</button>
-										<button onClick={() => handleDeleteArticle(article._id)} className="icon-button">
+										<button
+											onClick={e => {
+												e.stopPropagation();
+												handleDeleteArticle(article._id);
+											}}
+											className="icon-button"
+										>
 											❌
 										</button>
 									</div>
 								)}
 							</div>
-							<p>{article.content}</p>
-							<p>
-								<em>Category: {article.category}</em>
-							</p>
-							<p>
-								<em>Author: {article.author}</em>
-							</p>
-							<p>
-								<em>
-									Added at:{" "}
-									{new Date(article.timestamp).toLocaleString(undefined, {
-										year: "numeric",
-										month: "numeric",
-										day: "numeric",
-										hour: "2-digit",
-										minute: "2-digit",
-									}) || "Date not available"}
-								</em>
-							</p>
+							<div className="expand-collapse-hint" onClick={() => toggleArticle(article._id)}>
+								{expandedArticles[article._id] ? "Click to collapse article" : "Click to read full article"}
+							</div>
+							{expandedArticles[article._id] && (
+								<div className="news-content">
+									<p style={{ whiteSpace: "pre-wrap" }}>{article.content}</p>
+									<p>
+										<em>Category: {article.category}</em>
+									</p>
+									<div className="author-info">
+										<span>Author: {article.author}</span>
+										{article.authorPicture && (
+											<img src={article.authorPicture} alt="Author" className="author-picture" />
+										)}
+									</div>
+									<p>
+										<em>
+											Added at:{" "}
+											{new Date(article.timestamp).toLocaleString(undefined, {
+												year: "numeric",
+												month: "numeric",
+												day: "numeric",
+												hour: "2-digit",
+												minute: "2-digit",
+											}) || "Date not available"}
+										</em>
+									</p>
+								</div>
+							)}
 						</div>
 					))
 				) : (
@@ -340,7 +369,6 @@ function NewsList({ user, articles, setArticles }) {
 // ===========================
 // AddNews Component
 // ===========================
-
 function AddNews({ user }) {
 	const navigate = useNavigate();
 	const [newArticle, setNewArticle] = useState({ title: "", content: "", category: "" });
@@ -351,7 +379,12 @@ function AddNews({ user }) {
 			return;
 		}
 
-		const articleWithTimestamp = { ...newArticle, timestamp: new Date().toISOString(), author: user };
+		const articleWithTimestamp = {
+			...newArticle,
+			content: newArticle.content.trim(), // Trim content
+			timestamp: new Date().toISOString(),
+			author: user,
+		};
 		try {
 			const response = await fetch("/api/news", {
 				method: "POST",
@@ -360,11 +393,15 @@ function AddNews({ user }) {
 				},
 				body: JSON.stringify(articleWithTimestamp),
 			});
-			if (!response.ok) throw new Error("Failed to add news article");
+			if (!response.ok) {
+				const errorData = await response.json();
+				throw new Error(errorData.message || "Failed to add news article");
+			}
 			await response.json();
 			navigate("/");
 		} catch (error) {
 			console.error("Error adding news article:", error);
+			alert(error.message);
 		}
 	};
 
@@ -460,6 +497,7 @@ function EditNews({ user }) {
 		try {
 			const updatedArticle = {
 				...editedArticle,
+				content: editedArticle.content.trim(), // Trim content
 				author: user,
 				timestamp: article.timestamp,
 			};

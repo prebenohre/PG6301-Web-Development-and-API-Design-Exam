@@ -33,7 +33,21 @@ export function createNewsRoutes(newsCollection) {
 		try {
 			const userinfo = await fetchGoogleUserInfo(access_token);
 			const { title, content, category, timestamp } = req.body;
-			const newArticle = { title, content, category, timestamp, author: userinfo.name };
+
+			// Sjekk om en artikkel med samme tittel allerede eksisterer
+			const existingArticle = await newsCollection.findOne({ title: title });
+			if (existingArticle) {
+				return res.status(400).json({ message: "An article with this title already exists" });
+			}
+
+			const newArticle = {
+				title,
+				content,
+				category,
+				timestamp,
+				author: userinfo.name,
+				authorPicture: userinfo.picture, // Legg til forfatterens profilbilde
+			};
 			const result = await newsCollection.insertOne(newArticle);
 			const articleWithId = { _id: result.insertedId, ...newArticle };
 			broadcast({ type: "newsAdded", data: articleWithId });

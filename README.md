@@ -32,11 +32,11 @@
   - *Jeg valgte å bruke Google da brukernavn og passrod ikke anbefales å bruke.*
 - [x] En bruker som er logget inn kan se på sin profilside
 - [x] Brukere skal forbli logget inn når de refresher websiden
-- [ ] En bruker som er logget inn kan klikke på en nyhetssak for å se detaljene om nyhetssaken. Detaljene skal inkludere en overskrift, tekst, navn og bilde (om tilgjengelig) på den som publiserte den
+- [x] En bruker som er logget inn kan klikke på en nyhetssak for å se detaljene om nyhetssaken. Detaljene skal inkludere en overskrift, tekst, navn og bilde (om tilgjengelig) på den som publiserte den
 - [x] Brukere kan publisere nye nyhetsartikler
 - [x] Nyhetsartikkel skal inneholde en kategori valgt fra en nedtrekksliste (`<select>`), tittel (`<input>`) og tekst (`<textarea>`)
 - [x] Brukeren skal forhindres fra å sende inn en nyhetsartikkel som mangler kategori, tittel eller tekst
-- [ ] Dersom noen allerede har publisert en nyhetsartikkel med samme tittel skal serveren sende HTTP status kode 400 og en feilmelding
+- [x] Dersom noen allerede har publisert en nyhetsartikkel med samme tittel skal serveren sende HTTP status kode 400 og en feilmelding
 - [x] En bruker skal kunne redigere en artikkel de selv har publisert
 - [x] En bruker skal kunne slette en bruker de selv har publisert
   - *Her antar jeg at det er en skrivefeil og at det egentlig menes at brukeren skal kunne slette sin egen artikkel*
@@ -48,7 +48,8 @@
 - [x] `npm start` skal starte server og klient. Concurrently og parcel anbefales
 - [ ] `npm test` skal kjøre tester. Testene skal ikke feile
 - [x] Koden skal ha konsistent formattering. Prettier og Husky anbefales
-- [ ] Nettsidene skal ha god layout med CSS Grid og horisontal navigasjonsmeny. Brukeren må kunne navigere overalt uten å bruke "back" eller redigere URL
+- [x] Nettsidene skal ha god layout med CSS Grid og horisontal navigasjonsmeny. Brukeren må kunne navigere overalt uten å bruke "back" eller redigere URL
+  - *Valgte å bruke flexbox istedenfor grid, men dekker ellers kravet.*
 - [x] Serveren validerer at brukeren er logget inn
 - [ ] Innleveringen skal være i form av en ZIP-fil. Maks størrelse på fila er 1MB
 - [x] Data skal lagres i MongoDB
