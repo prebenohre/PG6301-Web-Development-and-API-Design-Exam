@@ -1,6 +1,6 @@
 # PG6301 Kontinuasjonksamen H2024
 
-## App deployet på Heroku: https://pg6301exam-cc5409570479.herokuapp.com/
+## App deployet på Heroku: https://pg6301-exam-news-app-a622156424c6.herokuapp.com/
 
 ## Github repository: [https://github.com/kristiania-pg6301-2023/pg6301-resit2024H2-prebenohre](https://github.com/kristiania-pg6301-2023/pg6301-resit2024H2-prebenohre)
 
