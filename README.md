@@ -15,7 +15,7 @@
 ### Læringsmål:
 - [x] Lage en app med parcel, express, concurrently, prettier, Jest
 - [x] Sette opp en fungerende React app med React Router, håndtering av loading state og feilhåndtering
-- [ ] Sette opp en fungerende Express app inkludert Routes i egen fil
+- [x] Sette opp en fungerende Express app inkludert Routes i egen fil
 - [x] Kommunikasjon mellom klient og server med GET og POST inkludert feilhåndtering
 - [x] Deployment til Heroku
 - [x] Lagring, henting og endring av data i Mongodb
@@ -29,7 +29,7 @@
 - For å oppnå E må 2-3 av disse være dekket og applikasjonen må enten kjøre på Heroku eller `npm install && npm test && npm start` må kjøre uten feil og gi en brukbar applikasjon.
 
 ### Funksjonelle krav:
-- [ ] Når en ny sak publiseres, skal alle brukerne få se den nye saken umiddelbart (bruk websockets for å sende oppdateringer)
+- [x] Når en ny sak publiseres, skal alle brukerne få se den nye saken umiddelbart (bruk websockets for å sende oppdateringer)
 - [x] Brukere kan logge seg inn. Du kan velge brukere skal kunne registrere seg med brukernavn og passord (anbefales ikke) eller om brukere skal logge inn med Google eller Facebook
 - [x] En bruker som er logget inn kan se på sin profilside
 - [x] Brukere skal forbli logget inn når de refresher websiden

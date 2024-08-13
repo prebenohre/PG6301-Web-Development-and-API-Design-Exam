@@ -7,9 +7,13 @@ import "./styles.css";
 // Navbar Component
 // ===========================
 function Navbar({ user, onLogout }) {
+	const navigate = useNavigate();
+
 	return (
 		<nav className="navbar">
-			<div className="navbar-brand">NewsApp 📰</div>
+			<div className="navbar-brand" onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
+				NewsApp 📰
+			</div>
 			<div className="navbar-menu">
 				{user ? (
 					<>
@@ -217,12 +221,14 @@ function LoginCallback({ setUser }) {
 
 // Component to handle the user login via Google OAuth.
 function Login() {
+	const navigate = useNavigate();
+
 	const handleGoogleLogin = () => {
-		const clientId = "748550571859-udd6k13djd9897ltj92ajaikp9tgoq2a.apps.googleusercontent.com"; // Google Client ID
+		const clientId = "748550571859-udd6k13djd9897ltj92ajaikp9tgoq2a.apps.googleusercontent.com";
 		const redirectUri = `${window.location.origin}/login/callback`;
 		const scope = "profile email";
 		const responseType = "token";
-		const state = "random_state_string"; // You can generate a random string for security
+		const state = "random_state_string";
 
 		const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}&state=${state}`;
 
@@ -235,6 +241,12 @@ function Login() {
 				<h1>Welcome to NewsApp</h1>
 				<button onClick={handleGoogleLogin} className="primary-button">
 					Log in with Google
+				</button>
+				<div className="login-separator">
+					<span>or...</span>
+				</div>
+				<button onClick={() => navigate("/")} className="secondary-button">
+					Continue as an anonymous user
 				</button>
 			</div>
 		</div>
