@@ -1,0 +1,29 @@
+# NODE MODULES & PACKAGE MANAGERS
+node_modules/
+
+# BUILD OUTPUTS
+*/**/dist/
+*/**/build/
+*/**/lib/
+*/**/out/
+*/**/.parcel-cache/
+
+# DOTFILES & LOCAL CONFIGS
+*.env
+
+# VARIOUS LOG FILES
+*.log
+npm-debug.log*
+
+# EDITOR & SYSTEM FILES
+.DS_Store
+
+# IDE SPECIFIC FILES
+.idea/
+.vscode/
+*.iml
+
+# MISCELLANEOUS
+*.tmp
+*.temp
+*/**/coverage/
