@@ -1,16 +1,14 @@
 # PG6301 Kontinuasjonksamen H2024
 
-## App deployet på Heroku: https://pg6301-exam-news-app-a622156424c6.herokuapp.com/
+**App deployet på Heroku:** https://pg6301-exam-news-app-a622156424c6.herokuapp.com/
 
-## Github repository: [https://github.com/kristiania-pg6301-2023/pg6301-resit2024H2-prebenohre](https://github.com/kristiania-pg6301-2023/pg6301-resit2024H2-prebenohre)
+**Github repository:** [https://github.com/kristiania-pg6301-2023/pg6301-resit2024H2-prebenohre](https://github.com/kristiania-pg6301-2023/pg6301-resit2024H2-prebenohre)
 
-## Testcoverage: HUSK Å LEGGE TIL SENERE
+**Testcoverage:** HUSK Å LEGGE TIL SENERE
 
-## Kandidatnummer: 13
+**Kandidatnummer:** 13
 
 ## Sjekkliste
-
-## Test
 
 ### Læringsmål:
 - [x] Lage en app med parcel, express, concurrently, prettier, Jest
@@ -31,6 +29,7 @@
 ### Funksjonelle krav:
 - [x] Når en ny sak publiseres, skal alle brukerne få se den nye saken umiddelbart (bruk websockets for å sende oppdateringer)
 - [x] Brukere kan logge seg inn. Du kan velge brukere skal kunne registrere seg med brukernavn og passord (anbefales ikke) eller om brukere skal logge inn med Google eller Facebook
+  - *Jeg valgte å bruke Google da brukernavn og passrod ikke anbefales å bruke.*
 - [x] En bruker som er logget inn kan se på sin profilside
 - [x] Brukere skal forbli logget inn når de refresher websiden
 - [ ] En bruker som er logget inn kan klikke på en nyhetssak for å se detaljene om nyhetssaken. Detaljene skal inkludere en overskrift, tekst, navn og bilde (om tilgjengelig) på den som publiserte den
@@ -40,7 +39,7 @@
 - [ ] Dersom noen allerede har publisert en nyhetsartikkel med samme tittel skal serveren sende HTTP status kode 400 og en feilmelding
 - [x] En bruker skal kunne redigere en artikkel de selv har publisert
 - [x] En bruker skal kunne slette en bruker de selv har publisert
-  - Her antar jeg at det er en skrivefeil og at det egentlig menes at brukeren skal kunne slette sin egen artikkel
+  - *Her antar jeg at det er en skrivefeil og at det egentlig menes at brukeren skal kunne slette sin egen artikkel*
 - [ ] Alle feil fra serveres skal presenteres til bruker på en pen måte, med mulighet for brukeren til å prøve igjen
 
 ### Tekniske krav:
