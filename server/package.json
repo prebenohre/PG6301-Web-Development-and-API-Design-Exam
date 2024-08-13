@@ -1,0 +1,54 @@
+{
+	"name": "server",
+	"version": "1.0.0",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {
+		"start": "node server.js",
+		"dev": "nodemon server.js",
+		"build": "npm install",
+		"test": "jest --collectCoverage"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"description": "",
+	"devDependencies": {
+		"@babel/preset-env": "^7.25.3",
+		"jest": "^29.7.0",
+		"jest-babel": "^1.0.1",
+		"jest-environment-jsdom": "^29.7.0",
+		"nodemon": "^3.1.4",
+		"supertest": "^7.0.0"
+	},
+	"dependencies": {
+		"body-parser": "^1.20.2",
+		"cookie-parser": "^1.4.6",
+		"cors": "^2.8.5",
+		"dotenv": "^16.4.5",
+		"express": "^4.19.2",
+		"mongodb": "^6.8.0",
+		"node-fetch": "^3.3.2",
+		"ws": "^8.18.0"
+	},
+	"babel": {
+		"presets": [
+			[
+				"@babel/preset-env",
+				{
+					"targets": {
+						"node": "current"
+					}
+				}
+			]
+		]
+	},
+	"jest": {
+		"testEnvironment": "node",
+		"collectCoverageFrom": [
+			"**/*.js",
+			"!server.js",
+			"!coverage/**"
+		]
+	}
+}

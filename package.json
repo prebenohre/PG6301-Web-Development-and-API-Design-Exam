@@ -1,0 +1,30 @@
+{
+	"name": "exam",
+	"version": "1.0.0",
+	"main": "index.js",
+	"scripts": {
+		"start": "cd server && npm start",
+		"dev": "concurrently npm:dev:client npm:dev:server",
+		"dev:client": "cd client && npm run dev",
+		"dev:server": "cd server && npm run dev",
+		"build": "npm run build:server && npm run build:client",
+		"build:client": "cd client && npm run build",
+		"build:server": "cd server && npm run build",
+		"format": "prettier --write **/*.{js,ts,jsx,tsx,html,css,json,yml,yaml}",
+		"format:check": "prettier --check **/*.{js,ts,jsx,tsx,html,css,json,yml,yaml}",
+		"test": "npm run test:client && npm run test:server",
+		"test:client": "cd client && npm test",
+		"test:server": "cd server && npm test",
+		"postinstall": "npm run install:client && npm run install:server",
+		"install:client": "cd client && npm install",
+		"install:server": "cd server && npm install"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"description": "",
+	"devDependencies": {
+		"concurrently": "^8.2.2",
+		"prettier": "^3.3.3"
+	}
+}
