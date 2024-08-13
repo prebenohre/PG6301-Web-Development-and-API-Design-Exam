@@ -32,8 +32,8 @@ export function createNewsRoutes(newsCollection) {
 
 		try {
 			const userinfo = await fetchGoogleUserInfo(access_token);
-			const { title, content, timestamp } = req.body;
-			const newArticle = { title, content, timestamp, author: userinfo.name };
+			const { title, content, category, timestamp } = req.body;
+			const newArticle = { title, content, category, timestamp, author: userinfo.name };
 			const result = await newsCollection.insertOne(newArticle);
 			const articleWithId = { _id: result.insertedId, ...newArticle };
 			broadcast({ type: "newsAdded", data: articleWithId });
@@ -46,7 +46,7 @@ export function createNewsRoutes(newsCollection) {
 
 	router.put("/:id", async (req, res) => {
 		const { id } = req.params;
-		const { title, content } = req.body;
+		const { title, content, category } = req.body;
 		const { access_token } = req.signedCookies;
 		if (!access_token) {
 			return res.status(401).send("Not authenticated");
@@ -63,7 +63,7 @@ export function createNewsRoutes(newsCollection) {
 			if (article.author !== username) {
 				return res.status(403).send("Forbidden");
 			}
-			await newsCollection.updateOne({ _id: new ObjectId(id) }, { $set: { title, content } });
+			await newsCollection.updateOne({ _id: new ObjectId(id) }, { $set: { title, content, category } });
 			const updatedArticle = await newsCollection.findOne({ _id: new ObjectId(id) });
 			broadcast({ type: "newsUpdated", data: updatedArticle });
 			res.status(200).json(updatedArticle);

@@ -35,8 +35,8 @@
 - [x] Brukere skal forbli logget inn når de refresher websiden
 - [ ] En bruker som er logget inn kan klikke på en nyhetssak for å se detaljene om nyhetssaken. Detaljene skal inkludere en overskrift, tekst, navn og bilde (om tilgjengelig) på den som publiserte den
 - [x] Brukere kan publisere nye nyhetsartikler
-- [ ] Nyhetsartikkel skal inneholde en kategori valgt fra en nedtrekksliste (`<select>`), tittel (`<input>`) og tekst (`<textarea>`)
-- [ ] Brukeren skal forhindres fra å sende inn en nyhetsartikkel som mangler kategori, tittel eller tekst
+- [x] Nyhetsartikkel skal inneholde en kategori valgt fra en nedtrekksliste (`<select>`), tittel (`<input>`) og tekst (`<textarea>`)
+- [x] Brukeren skal forhindres fra å sende inn en nyhetsartikkel som mangler kategori, tittel eller tekst
 - [ ] Dersom noen allerede har publisert en nyhetsartikkel med samme tittel skal serveren sende HTTP status kode 400 og en feilmelding
 - [x] En bruker skal kunne redigere en artikkel de selv har publisert
 - [x] En bruker skal kunne slette en bruker de selv har publisert

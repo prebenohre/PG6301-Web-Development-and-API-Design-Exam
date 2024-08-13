@@ -3,6 +3,9 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Routes, Link, useNavigate, useParams } from "react-router-dom";
 import "./styles.css";
 
+// Article categories
+const categories = ["Choose category...", "Politics", "Economy", "Technology", "Science", "Culture"];
+
 // ===========================
 // Navbar Component
 // ===========================
@@ -126,10 +129,7 @@ function App() {
 				<Navbar user={user} onLogout={handleLogout} />
 				<div className="content">
 					<Routes>
-						<Route
-							path="/"
-							element={<NewsList user={user} setUser={setUser} articles={articles} setArticles={setArticles} />}
-						/>
+						<Route path="/" element={<NewsList user={user} articles={articles} setArticles={setArticles} />} />
 						<Route path="/login" element={<Login setUser={setUser} />} />
 						<Route path="/login/callback" element={<LoginCallback setUser={setUser} />} />
 						<Route path="/newarticle" element={<AddNews user={user} />} />
@@ -147,7 +147,6 @@ function App() {
 // Custom Hook: useLoader
 // ===========================
 
-// Custom hook to manage loading state, error state, and data fetching.
 function useLoader(loadingFn) {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState();
@@ -175,14 +174,13 @@ function useLoader(loadingFn) {
 // LoginCallback Component
 // ===========================
 
-// Component to handle the OAuth callback from Google and log in the user.
 function LoginCallback({ setUser }) {
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		const hashParams = new URLSearchParams(window.location.hash.substring(1));
 		const accessToken = hashParams.get("access_token");
-		console.log("Access Token: ", accessToken); // Logging access token for debugging
+		console.log("Access Token: ", accessToken);
 
 		if (accessToken) {
 			(async () => {
@@ -202,8 +200,8 @@ function LoginCallback({ setUser }) {
 						throw new Error("Failed to fetch user info");
 					}
 					const data = await userResponse.json();
-					console.log("User Info: ", data); // Logging user info for debugging
-					setUser(data.name); // Set user name as the logged-in user's name
+					console.log("User Info: ", data);
+					setUser(data.name);
 					navigate("/");
 				} catch (error) {
 					console.error("Error during login:", error);
@@ -219,7 +217,6 @@ function LoginCallback({ setUser }) {
 // Login Component
 // ===========================
 
-// Component to handle the user login via Google OAuth.
 function Login() {
 	const navigate = useNavigate();
 
@@ -257,7 +254,6 @@ function Login() {
 // NewsList Component
 // ===========================
 
-// Component to display the list of news articles and handle their addition, update, and deletion.
 function NewsList({ user, articles, setArticles }) {
 	const navigate = useNavigate();
 	const { loading, error, reload } = useLoader(async () => {
@@ -314,6 +310,9 @@ function NewsList({ user, articles, setArticles }) {
 							</div>
 							<p>{article.content}</p>
 							<p>
+								<em>Category: {article.category}</em>
+							</p>
+							<p>
 								<em>Author: {article.author}</em>
 							</p>
 							<p>
@@ -342,12 +341,16 @@ function NewsList({ user, articles, setArticles }) {
 // AddNews Component
 // ===========================
 
-// Component to handle adding a new news article.
 function AddNews({ user }) {
 	const navigate = useNavigate();
-	const [newArticle, setNewArticle] = useState({ title: "", content: "" });
+	const [newArticle, setNewArticle] = useState({ title: "", content: "", category: "" });
 
 	const handleAddArticle = async () => {
+		if (!newArticle.title.trim() || !newArticle.content.trim() || !newArticle.category) {
+			alert("You need to fill in all fields, including selecting a category");
+			return;
+		}
+
 		const articleWithTimestamp = { ...newArticle, timestamp: new Date().toISOString(), author: user };
 		try {
 			const response = await fetch("/api/news", {
@@ -392,6 +395,17 @@ function AddNews({ user }) {
 				onChange={e => setNewArticle({ ...newArticle, content: e.target.value })}
 				className="article-input"
 			></textarea>
+			<select
+				value={newArticle.category}
+				onChange={e => setNewArticle({ ...newArticle, category: e.target.value })}
+				className="article-input"
+			>
+				{categories.map((category, index) => (
+					<option key={category} value={index === 0 ? "" : category} disabled={index === 0}>
+						{category}
+					</option>
+				))}
+			</select>
 			<div className="add-news-buttons">
 				<button onClick={handleAddArticle} className="primary-button">
 					Add Article
@@ -408,7 +422,6 @@ function AddNews({ user }) {
 // EditNews Component
 // ===========================
 
-// Component to handle editing an existing news article.
 function EditNews({ user }) {
 	const navigate = useNavigate();
 	const { id } = useParams();
@@ -422,17 +435,34 @@ function EditNews({ user }) {
 		return response.json();
 	});
 
-	const [editedArticle, setEditedArticle] = useState({ title: "", content: "" });
+	const [editedArticle, setEditedArticle] = useState({
+		title: "",
+		content: "",
+		category: "",
+	});
 
 	useEffect(() => {
 		if (article) {
-			setEditedArticle({ title: article.title, content: article.content });
+			setEditedArticle({
+				title: article.title,
+				content: article.content,
+				category: article.category || "",
+			});
 		}
 	}, [article]);
 
 	const handleEditArticle = async () => {
+		if (!editedArticle.title.trim() || !editedArticle.content.trim() || !editedArticle.category) {
+			alert("You need to fill in all fields, including selecting a category");
+			return;
+		}
+
 		try {
-			const updatedArticle = { ...editedArticle, author: user, timestamp: article.timestamp };
+			const updatedArticle = {
+				...editedArticle,
+				author: user,
+				timestamp: article.timestamp,
+			};
 			const response = await fetch(`/api/news/${id}`, {
 				method: "PUT",
 				headers: {
@@ -480,6 +510,17 @@ function EditNews({ user }) {
 				onChange={e => setEditedArticle({ ...editedArticle, content: e.target.value })}
 				className="article-input"
 			></textarea>
+			<select
+				value={editedArticle.category}
+				onChange={e => setEditedArticle({ ...editedArticle, category: e.target.value })}
+				className="article-input"
+			>
+				{categories.map((category, index) => (
+					<option key={category} value={index === 0 ? "" : category} disabled={index === 0}>
+						{category}
+					</option>
+				))}
+			</select>
 			<div className="add-news-buttons">
 				<button onClick={handleEditArticle} className="primary-button">
 					Update Article
@@ -496,7 +537,6 @@ function EditNews({ user }) {
 // Profile Component
 // ===========================
 
-// Component to display the user's profile information.
 function Profile({ user }) {
 	const navigate = useNavigate();
 	const {
