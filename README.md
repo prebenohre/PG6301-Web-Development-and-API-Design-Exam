@@ -29,7 +29,7 @@
 ### Funksjonelle krav:
 - [x] Når en ny sak publiseres, skal alle brukerne få se den nye saken umiddelbart (bruk websockets for å sende oppdateringer)
 - [x] Brukere kan logge seg inn. Du kan velge brukere skal kunne registrere seg med brukernavn og passord (anbefales ikke) eller om brukere skal logge inn med Google eller Facebook
-  - *Jeg valgte å bruke Google da brukernavn og passrod ikke anbefales å bruke.*
+  - *Jeg valgte å bruke Google da oppgaveteksten forteller at brukernavn og passrod ikke anbefales å bruke.*
 - [x] En bruker som er logget inn kan se på sin profilside
 - [x] Brukere skal forbli logget inn når de refresher websiden
 - [x] En bruker som er logget inn kan klikke på en nyhetssak for å se detaljene om nyhetssaken. Detaljene skal inkludere en overskrift, tekst, navn og bilde (om tilgjengelig) på den som publiserte den

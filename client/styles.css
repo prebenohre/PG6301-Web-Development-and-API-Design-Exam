@@ -1,10 +1,9 @@
-/* styles.css */
-
 body {
 	font-family: Arial, sans-serif;
 	margin: 0;
 	padding: 0;
-	background-color: #1f1f1f;
+	background: linear-gradient(to bottom, #1f1f1f 60%, #454f45 200%);
+	background-attachment: fixed;
 	color: white;
 }
 
@@ -15,6 +14,10 @@ body {
 }
 
 .navbar {
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+	z-index: 1000;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -391,6 +394,10 @@ login-separator::after {
 }
 
 .latest-news-banner {
+	position: -webkit-sticky;
+	position: sticky;
+	top: 54px;
+	z-index: 999;
 	background-color: #f8d162;
 	color: black;
 	padding: 5px;
@@ -418,7 +425,7 @@ login-separator::after {
 /* styles.css */
 
 .not-found-container {
-	margin-top: 20px; /* Gir litt avstand til banneret */
+	margin-top: 20px;
 	text-align: center;
 	color: white;
 }
