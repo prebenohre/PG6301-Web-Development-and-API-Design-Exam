@@ -1,3 +1,5 @@
+/* styles.css */
+
 body {
 	font-family: Arial, sans-serif;
 	margin: 0;
@@ -431,6 +433,7 @@ login-separator::after {
 	color: #4caf50;
 	cursor: pointer;
 	transition: color 0.3s;
+	text-decoration: none;
 }
 
 .not-found-back:hover {

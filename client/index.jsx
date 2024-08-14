@@ -262,6 +262,10 @@ function useLoader(loadingFn) {
 // ===========================
 // LoginCallback Component
 // ===========================
+import React, { useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import "./styles.css";
+
 function LoginCallback({ setUser }) {
 	const navigate = useNavigate();
 
@@ -298,8 +302,19 @@ function LoginCallback({ setUser }) {
 		}
 	}, [navigate, setUser]);
 
-	return <div>Please wait...</div>;
+	return (
+		<div className="not-found-container">
+			<h1>Please wait... ⏳</h1>
+			<p>
+				<Link to="/login" className="not-found-back">
+					If nothing happens, try logging in again. 🗝️
+				</Link>
+			</p>
+		</div>
+	);
 }
+
+export default LoginCallback;
 
 // ===========================
 // Login Component
