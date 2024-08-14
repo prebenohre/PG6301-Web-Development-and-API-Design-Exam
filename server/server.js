@@ -1,4 +1,3 @@
-// server.js
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -14,20 +13,34 @@ dotenv.config();
 const app = express();
 const httpServer = createServer(app);
 
+// ===========================
+// Middleware
+// ===========================
 app.use(cors());
 app.use(bodyParser.json());
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
+// ===========================
+// WebSocket Server Setup
+// ===========================
 setupWebSocketServer(httpServer);
 
+// ===========================
+// Start Server
+// ===========================
 async function startServer() {
 	const newsCollection = await connectToMongoDB();
 
+	// ===========================
+	// API Routes
+	// ===========================
 	app.use("/api/news", createNewsRoutes(newsCollection));
 	app.use("/api", createAuthRoutes());
 
+	// Serve static files
 	app.use(express.static(path.join("../client/dist/")));
 
+	// Fallback for SPA
 	app.use((req, res, next) => {
 		if (req.method === "GET" && !req.path.startsWith("/api/")) {
 			return res.sendFile(path.resolve("../client/dist/index.html"));

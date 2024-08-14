@@ -1,16 +1,20 @@
-// routes.js
 import express from "express";
 import { ObjectId } from "mongodb";
 import { fetchGoogleUserInfo, broadcast } from "./helpers.js";
 
+// ===========================
+// Create News Routes
+// ===========================
 export function createNewsRoutes(newsCollection) {
 	const router = express.Router();
 
+	// Get all news articles
 	router.get("/", async (req, res) => {
 		const news = await newsCollection.find({}).toArray();
 		res.json(news);
 	});
 
+	// Get a single news article by ID
 	router.get("/:id", async (req, res) => {
 		const { id } = req.params;
 		try {
@@ -24,6 +28,7 @@ export function createNewsRoutes(newsCollection) {
 		}
 	});
 
+	// Create a new news article
 	router.post("/", async (req, res) => {
 		const { access_token } = req.signedCookies;
 		if (!access_token) {
@@ -34,7 +39,7 @@ export function createNewsRoutes(newsCollection) {
 			const userinfo = await fetchGoogleUserInfo(access_token);
 			const { title, content, category, timestamp } = req.body;
 
-			// Sjekk om en artikkel med samme tittel allerede eksisterer
+			// Check if an article with the same title already exists
 			const existingArticle = await newsCollection.findOne({ title: title });
 			if (existingArticle) {
 				return res.status(400).json({ message: "An article with this title already exists" });
@@ -46,7 +51,7 @@ export function createNewsRoutes(newsCollection) {
 				category,
 				timestamp,
 				author: userinfo.name,
-				authorPicture: userinfo.picture, // Legg til forfatterens profilbilde
+				authorPicture: userinfo.picture, // Add author's profile picture
 			};
 			const result = await newsCollection.insertOne(newArticle);
 			const articleWithId = { _id: result.insertedId, ...newArticle };
@@ -58,6 +63,7 @@ export function createNewsRoutes(newsCollection) {
 		}
 	});
 
+	// Update an existing news article
 	router.put("/:id", async (req, res) => {
 		const { id } = req.params;
 		const { title, content, category } = req.body;
@@ -87,6 +93,7 @@ export function createNewsRoutes(newsCollection) {
 		}
 	});
 
+	// Delete a news article
 	router.delete("/:id", async (req, res) => {
 		const { id } = req.params;
 		const { access_token } = req.signedCookies;
@@ -117,9 +124,13 @@ export function createNewsRoutes(newsCollection) {
 	return router;
 }
 
+// ===========================
+// Create Auth Routes
+// ===========================
 export function createAuthRoutes() {
 	const router = express.Router();
 
+	// Fetch logged-in user info
 	router.get("/login", async (req, res) => {
 		const { access_token } = req.signedCookies;
 		if (!access_token) {
@@ -134,6 +145,7 @@ export function createAuthRoutes() {
 		}
 	});
 
+	// Login route
 	router.post("/login", (req, res) => {
 		const { access_token } = req.body;
 		console.log("Received access token:", access_token);
@@ -145,6 +157,7 @@ export function createAuthRoutes() {
 		res.sendStatus(200);
 	});
 
+	// Logout route
 	router.post("/logout", (req, res) => {
 		res.clearCookie("access_token");
 		res.sendStatus(200);

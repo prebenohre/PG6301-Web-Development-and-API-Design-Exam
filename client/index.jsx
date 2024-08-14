@@ -3,7 +3,9 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Routes, Link, useNavigate, useParams } from "react-router-dom";
 import "./styles.css";
 
+// ===========================
 // Article categories
+// ===========================
 const categories = ["Choose category...", "Politics", "Economy", "Technology", "Science", "Culture"];
 
 // ===========================
@@ -40,7 +42,7 @@ export function Navbar({ user, onLogout }) {
 //===========================
 // LatestNewsBanner Component
 //===========================
-export function LatestNewsBanner() {
+function LatestNewsBanner() {
 	const [articles, setArticles] = useState([]);
 	const navigate = useNavigate();
 	const wsRef = useRef(null);
@@ -49,7 +51,10 @@ export function LatestNewsBanner() {
 		const fetchLatestArticles = async () => {
 			try {
 				const response = await fetch("/api/news");
-				if (!response.ok) throw new Error("Failed to fetch news articles");
+				if (!response.ok) {
+					console.error("Failed to fetch news articles");
+					return;
+				}
 				const data = await response.json();
 				const latestThreeArticles = data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)).slice(0, 3);
 				setArticles(latestThreeArticles);
@@ -69,18 +74,14 @@ export function LatestNewsBanner() {
 				const message = JSON.parse(event.data);
 				switch (message.type) {
 					case "newsAdded":
-						setArticles(prevArticles => {
-							const updatedArticles = [{ ...message.data }, ...prevArticles].slice(0, 3);
-							return updatedArticles;
-						});
+						setArticles(prevArticles => [{ ...message.data }, ...prevArticles].slice(0, 3));
 						break;
 					case "newsUpdated":
-						setArticles(prevArticles => {
-							const updatedArticles = prevArticles
+						setArticles(prevArticles =>
+							prevArticles
 								.map(article => (article._id === message.data._id ? { ...article, ...message.data } : article))
-								.slice(0, 3);
-							return updatedArticles;
-						});
+								.slice(0, 3)
+						);
 						break;
 					case "newsDeleted":
 						fetchLatestArticles(); // Fetch the latest articles after a deletion
@@ -120,7 +121,7 @@ export function LatestNewsBanner() {
 					</span>
 				))
 			) : (
-				<span className="no-articles">No articles registered yet 😔 </span>
+				<span className="no-articles">No articles registered yet 😔</span>
 			)}
 		</div>
 	);
@@ -134,7 +135,7 @@ function App() {
 	const [articles, setArticles] = useState([]);
 	const wsRef = useRef(null);
 
-	// Effect to check if the user is logged in on component mount
+	// Effect hook to check if the user is logged in on component mount
 	useEffect(() => {
 		fetch("/api/login")
 			.then(response => {
@@ -152,7 +153,7 @@ function App() {
 			.catch(error => console.error("Error fetching user:", error));
 	}, []);
 
-	// Effect to set up and manage the WebSocket connection
+	// Effect hook to set up and manage the WebSocket connection
 	useEffect(() => {
 		function connect() {
 			wsRef.current = new WebSocket(
@@ -212,6 +213,9 @@ function App() {
 		}
 	};
 
+	// ===========================
+	// Routes
+	// ===========================
 	return (
 		<Router>
 			<div className="app">
@@ -262,10 +266,6 @@ function useLoader(loadingFn) {
 // ===========================
 // LoginCallback Component
 // ===========================
-import React, { useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import "./styles.css";
-
 function LoginCallback({ setUser }) {
 	const navigate = useNavigate();
 
@@ -285,11 +285,13 @@ function LoginCallback({ setUser }) {
 						body: JSON.stringify({ access_token: accessToken }),
 					});
 					if (!response.ok) {
-						throw new Error("Login failed");
+						console.error("Login failed");
+						return;
 					}
 					const userResponse = await fetch("/api/login");
 					if (!userResponse.ok) {
-						throw new Error("Failed to fetch user info");
+						console.error("Failed to fetch user info");
+						return;
 					}
 					const data = await userResponse.json();
 					console.log("User Info: ", data);
@@ -314,8 +316,6 @@ function LoginCallback({ setUser }) {
 	);
 }
 
-export default LoginCallback;
-
 // ===========================
 // Login Component
 // ===========================
@@ -329,9 +329,7 @@ function Login() {
 		const responseType = "token";
 		const state = "random_state_string";
 
-		const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}&state=${state}`;
-
-		window.location.href = authUrl;
+		window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}&state=${state}`;
 	};
 
 	return (
@@ -358,9 +356,12 @@ function Login() {
 function NewsList({ user, articles, setArticles }) {
 	const navigate = useNavigate();
 	const [expandedArticles, setExpandedArticles] = useState({});
-	const { loading, error, reload } = useLoader(async () => {
+	const { loading, error } = useLoader(async () => {
 		const response = await fetch("/api/news");
-		if (!response.ok) throw new Error("Failed to fetch news articles");
+		if (!response.ok) {
+			console.error("Failed to fetch news articles");
+			return;
+		}
 		const data = await response.json();
 		setArticles(data);
 		return data;
@@ -372,9 +373,8 @@ function NewsList({ user, articles, setArticles }) {
 				method: "DELETE",
 			});
 			if (!response.ok) {
-				throw new Error("Failed to delete news article");
+				console.error("Failed to delete news article");
 			}
-			// WebSocket will handle state update
 		} catch (error) {
 			console.error("Error deleting news article:", error);
 		}
@@ -390,7 +390,7 @@ function NewsList({ user, articles, setArticles }) {
 	if (loading) return <div>Loading...</div>;
 	if (error) return <div>Error loading news articles: {error.message}</div>;
 
-	// Sorter artiklene slik at de nyeste vises først
+	// Sorting articles so that the newest ones are displayed first
 	const sortedArticles = [...articles].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
 	return (
@@ -464,7 +464,7 @@ function NewsList({ user, articles, setArticles }) {
 						</div>
 					))
 				) : (
-					<p>No articles registered yet</p>
+					<p>No articles registered yet 😔</p>
 				)}
 			</div>
 		</div>
@@ -500,7 +500,9 @@ function AddNews({ user }) {
 			});
 			if (!response.ok) {
 				const errorData = await response.json();
-				throw new Error(errorData.message || "Failed to add news article");
+				console.error(errorData.message || "Failed to add news article");
+				alert(errorData.message || "Failed to add news article");
+				return;
 			}
 			await response.json();
 			navigate("/");
@@ -556,7 +558,6 @@ function AddNews({ user }) {
 // ===========================
 // EditNews Component
 // ===========================
-
 function EditNews({ user }) {
 	const navigate = useNavigate();
 	const { id } = useParams();
@@ -566,7 +567,10 @@ function EditNews({ user }) {
 		data: article,
 	} = useLoader(async () => {
 		const response = await fetch(`/api/news/${id}`);
-		if (!response.ok) throw new Error("Failed to fetch news article");
+		if (!response.ok) {
+			console.error("Failed to fetch news article");
+			return;
+		}
 		return response.json();
 	});
 
@@ -594,10 +598,10 @@ function EditNews({ user }) {
 
 		try {
 			const updatedArticle = {
-				...editedArticle,
 				content: editedArticle.content.trim(),
 				author: user,
 				timestamp: article.timestamp,
+				...editedArticle,
 			};
 			const response = await fetch(`/api/news/${id}`, {
 				method: "PUT",
@@ -607,7 +611,8 @@ function EditNews({ user }) {
 				body: JSON.stringify(updatedArticle),
 			});
 			if (!response.ok) {
-				throw new Error("Failed to update news article");
+				console.error("Failed to update news article");
+				return;
 			}
 			await response.json();
 			navigate("/");
@@ -665,7 +670,6 @@ function EditNews({ user }) {
 // ===========================
 // Profile Component
 // ===========================
-
 function Profile({ user }) {
 	const navigate = useNavigate();
 	const {

@@ -1,4 +1,3 @@
-// helpers.js
 import { WebSocketServer, WebSocket } from "ws";
 import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
@@ -16,6 +15,9 @@ export const client = new MongoClient(mongoUri);
 
 export const wss = new WebSocketServer({ noServer: true });
 
+// ===========================
+// MongoDB Connection
+// ===========================
 export async function connectToMongoDB() {
 	try {
 		console.log("Connecting to MongoDB...");
@@ -28,6 +30,9 @@ export async function connectToMongoDB() {
 	}
 }
 
+// ===========================
+// WebSocket Server Setup
+// ===========================
 export function setupWebSocketServer(httpServer) {
 	httpServer.on("upgrade", (request, socket, head) => {
 		wss.handleUpgrade(request, socket, head, ws => {
@@ -43,6 +48,9 @@ export function setupWebSocketServer(httpServer) {
 	});
 }
 
+// ===========================
+// WebSocket Broadcast
+// ===========================
 export function broadcast(message) {
 	wss.clients.forEach(client => {
 		if (client.readyState === WebSocket.OPEN) {
@@ -51,6 +59,9 @@ export function broadcast(message) {
 	});
 }
 
+// ===========================
+// Fetch Google User Info
+// ===========================
 export async function fetchGoogleUserInfo(accessToken) {
 	const res = await fetch(`https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${accessToken}`);
 	if (!res.ok) {
