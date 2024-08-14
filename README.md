@@ -2,9 +2,9 @@
 
 **App deployet på Heroku:** https://pg6301-exam-news-app-a622156424c6.herokuapp.com/
 
-**Github repository:** [https://github.com/kristiania-pg6301-2023/pg6301-resit2024H2-prebenohre](https://github.com/kristiania-pg6301-2023/pg6301-resit2024H2-prebenohre)
+**Github repository:** https://github.com/kristiania-pg6301-2023/pg6301-resit2024H2-prebenohre
 
-**Testcoverage:** HUSK Å LEGGE TIL SENERE
+**Testcoverage:** 
 
 **Kandidatnummer:** 13
 
@@ -19,7 +19,7 @@
 - [x] Lagring, henting og endring av data i Mongodb
 - [x] Login med OpenID Connect med Google
 - [x] Web Sockets
-- [ ] Test coverage på 50-70% eller bedre dokumentert med Github Actions
+- [] Test coverage på 50-70% eller bedre dokumentert med Github Actions
 - For å oppnå A må alle 9 av disse være dekket
 - For å oppnå B må 8 av disse være dekket
 - For å oppnå C må 6-7 av disse være dekket
@@ -44,7 +44,7 @@
 
 ### Tekniske krav:
 #### Må-ha:
-- [ ] Besvarelsen skal inneholde en README-fil med link til Heroku og test coverage
+- [x] Besvarelsen skal inneholde en README-fil med link til Heroku og test coverage
 - [x] `npm start` skal starte server og klient. Concurrently og parcel anbefales
 - [ ] `npm test` skal kjøre tester. Testene skal ikke feile
 - [x] Koden skal ha konsistent formattering. Prettier og Husky anbefales
@@ -57,7 +57,8 @@
 - [x] Testene skal kjøre på Github Actions
 
 #### Bør-ha:
-- [ ] Github Actions bør beregne testcoverage. Testdekningen bør være over 50%. Bruk `collectCoverageFrom` for å inkludere *alle* filer. Kun genererte filer som `coverage` og `dist` skal ekskluderes.
+- [x] Github Actions bør beregne testcoverage. Testdekningen bør være over 50%. Bruk `collectCoverageFrom` for å inkludere *alle* filer. Kun genererte filer som `coverage` og `dist` skal ekskluderes.
+  - *Konfigurasjonen skal være korrekt, men jeg har ikke test dekning.*
 - [x] Brukere bør alltid se listen over artikler når de navigerer seg rundt på sidene
   - *Jeg valgte å lage en LatestNewsBanner som viser de siste 3 nyhetsartiklene uansett hvor man navigerer seg. Man kan klikke på den for å gå tilbake til forsiden.*
 - [ ] Brukere kan logge seg på med mer enn én OpenID Connect Provider (for eksempel Entra ID, Facebook, LinkedIn, GitHub)
