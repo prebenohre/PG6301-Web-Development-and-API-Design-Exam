@@ -128,7 +128,7 @@ function LatestNewsBanner() {
 }
 
 // ===========================
-// Main Application Component
+// Main App Component
 // ===========================
 function App() {
 	const [user, setUser] = useState(null);
