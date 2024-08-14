@@ -40,7 +40,7 @@
 - [x] En bruker skal kunne redigere en artikkel de selv har publisert
 - [x] En bruker skal kunne slette en bruker de selv har publisert
   - *Her antar jeg at det er en skrivefeil og at det egentlig menes at brukeren skal kunne slette sin egen artikkel*
-- [ ] Alle feil fra serveres skal presenteres til bruker på en pen måte, med mulighet for brukeren til å prøve igjen
+- [x] Alle feil fra serveres skal presenteres til bruker på en pen måte, med mulighet for brukeren til å prøve igjen
 
 ### Tekniske krav:
 #### Må-ha:

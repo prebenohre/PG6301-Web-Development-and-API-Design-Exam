@@ -120,7 +120,7 @@ export function LatestNewsBanner() {
 					</span>
 				))
 			) : (
-				<span className="no-articles">No articles registered yet</span>
+				<span className="no-articles">No articles registered yet 😔 </span>
 			)}
 		</div>
 	);
@@ -225,7 +225,7 @@ function App() {
 						<Route path="/newarticle" element={<AddNews user={user} />} />
 						<Route path="/editarticle/:id" element={<EditNews user={user} />} />
 						<Route path="/profile" element={<Profile user={user} />} />
-						<Route path="*" element={<h1>404 Not Found</h1>} />
+						<Route path="*" element={<NotFound />} /> {/* Endret Route her */}
 					</Routes>
 				</div>
 			</div>
@@ -465,13 +465,13 @@ function AddNews({ user }) {
 
 	const handleAddArticle = async () => {
 		if (!newArticle.title.trim() || !newArticle.content.trim() || !newArticle.category) {
-			alert("You need to fill in all fields, including selecting a category");
+			alert("You need to fill in all fields, including selecting a category 🧐");
 			return;
 		}
 
 		const articleWithTimestamp = {
 			...newArticle,
-			content: newArticle.content.trim(), // Trim content
+			content: newArticle.content.trim(),
 			timestamp: new Date().toISOString(),
 			author: user,
 		};
@@ -496,14 +496,7 @@ function AddNews({ user }) {
 	};
 
 	if (!user) {
-		return (
-			<div>
-				<h1>Please log in to add news articles</h1>
-				<button onClick={() => navigate("/login")} className="primary-button">
-					Login
-				</button>
-			</div>
-		);
+		return <NoAccess message="Please log in to add news articles 🔒" />;
 	}
 
 	return (
@@ -587,7 +580,7 @@ function EditNews({ user }) {
 		try {
 			const updatedArticle = {
 				...editedArticle,
-				content: editedArticle.content.trim(), // Trim content
+				content: editedArticle.content.trim(),
 				author: user,
 				timestamp: article.timestamp,
 			};
@@ -609,14 +602,7 @@ function EditNews({ user }) {
 	};
 
 	if (!user) {
-		return (
-			<div>
-				<h1>Please log in to edit news articles</h1>
-				<button onClick={() => navigate("/login")} className="primary-button">
-					Login
-				</button>
-			</div>
-		);
+		return <NoAccess message="Please log in to edit news articles 🔒" />;
 	}
 
 	if (loading) return <div>Loading...</div>;
@@ -678,14 +664,7 @@ function Profile({ user }) {
 	});
 
 	if (!user) {
-		return (
-			<div>
-				<h1>Please log in to view profile</h1>
-				<button onClick={() => navigate("/login")} className="primary-button">
-					Login
-				</button>
-			</div>
-		);
+		return <NoAccess message="Please log in to view profile 🔒" />;
 	}
 
 	if (loading) return <div>Loading...</div>;
@@ -708,6 +687,38 @@ function Profile({ user }) {
 			<button onClick={() => navigate("/")} className="primary-button full-width">
 				Back
 			</button>
+		</div>
+	);
+}
+
+// ===========================
+// NotFound Component
+// ===========================
+function NotFound() {
+	const navigate = useNavigate();
+
+	return (
+		<div className="not-found-container">
+			<h1>Ooops... The page you're looking for does not exist 😔</h1>
+			<p className="not-found-back" onClick={() => navigate("/")}>
+				Go back to homepage 😊
+			</p>
+		</div>
+	);
+}
+
+// ===========================
+// NoAccess Component
+// ===========================
+function NoAccess({ message, linkText = "Go to login 🗝️", linkPath = "/login" }) {
+	const navigate = useNavigate();
+
+	return (
+		<div className="not-found-container">
+			<h1>{message}</h1>
+			<p className="not-found-back" onClick={() => navigate(linkPath)}>
+				{linkText}
+			</p>
 		</div>
 	);
 }

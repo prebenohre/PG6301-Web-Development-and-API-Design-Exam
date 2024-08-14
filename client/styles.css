@@ -412,3 +412,27 @@ login-separator::after {
 .no-articles {
 	color: red;
 }
+
+/* styles.css */
+
+.not-found-container {
+	margin-top: 20px; /* Gir litt avstand til banneret */
+	text-align: center;
+	color: white;
+}
+
+.not-found-container h1 {
+	font-size: 24px;
+	margin-bottom: 20px;
+}
+
+.not-found-back {
+	font-size: 18px;
+	color: #4caf50;
+	cursor: pointer;
+	transition: color 0.3s;
+}
+
+.not-found-back:hover {
+	color: #45a049;
+}
