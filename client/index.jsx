@@ -42,7 +42,7 @@ export function Navbar({ user, onLogout }) {
 //===========================
 // LatestNewsBanner Component
 //===========================
-function LatestNewsBanner() {
+export function LatestNewsBanner() {
 	const [articles, setArticles] = useState([]);
 	const navigate = useNavigate();
 	const wsRef = useRef(null);
@@ -130,7 +130,7 @@ function LatestNewsBanner() {
 // ===========================
 // Main App Component
 // ===========================
-function App() {
+export function App() {
 	const [user, setUser] = useState(null);
 	const [articles, setArticles] = useState([]);
 	const wsRef = useRef(null);
@@ -240,7 +240,7 @@ function App() {
 // ===========================
 // Custom Hook: useLoader
 // ===========================
-function useLoader(loadingFn) {
+export function useLoader(loadingFn) {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState();
 	const [data, setData] = useState();
@@ -266,7 +266,7 @@ function useLoader(loadingFn) {
 // ===========================
 // LoginCallback Component
 // ===========================
-function LoginCallback({ setUser }) {
+export function LoginCallback({ setUser }) {
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -319,7 +319,7 @@ function LoginCallback({ setUser }) {
 // ===========================
 // Login Component
 // ===========================
-function Login() {
+export function Login() {
 	const navigate = useNavigate();
 
 	const handleGoogleLogin = () => {
@@ -353,7 +353,7 @@ function Login() {
 // ===========================
 // NewsList Component
 // ===========================
-function NewsList({ user, articles, setArticles }) {
+export function NewsList({ user, articles, setArticles }) {
 	const navigate = useNavigate();
 	const [expandedArticles, setExpandedArticles] = useState({});
 	const { loading, error } = useLoader(async () => {
@@ -474,7 +474,7 @@ function NewsList({ user, articles, setArticles }) {
 // ===========================
 // AddNews Component
 // ===========================
-function AddNews({ user }) {
+export function AddNews({ user }) {
 	const navigate = useNavigate();
 	const [newArticle, setNewArticle] = useState({ title: "", content: "", category: "" });
 
@@ -558,7 +558,7 @@ function AddNews({ user }) {
 // ===========================
 // EditNews Component
 // ===========================
-function EditNews({ user }) {
+export function EditNews({ user }) {
 	const navigate = useNavigate();
 	const { id } = useParams();
 	const {
@@ -670,7 +670,7 @@ function EditNews({ user }) {
 // ===========================
 // Profile Component
 // ===========================
-function Profile({ user }) {
+export function Profile({ user }) {
 	const navigate = useNavigate();
 	const {
 		loading,
@@ -713,7 +713,7 @@ function Profile({ user }) {
 // ===========================
 // NotFound Component
 // ===========================
-function NotFound() {
+export function NotFound() {
 	const navigate = useNavigate();
 
 	return (
@@ -729,7 +729,7 @@ function NotFound() {
 // ===========================
 // NoAccess Component
 // ===========================
-function NoAccess({ message, linkText = "Go to login 🗝️", linkPath = "/login" }) {
+export function NoAccess({ message, linkText = "Go to login 🗝️", linkPath = "/login" }) {
 	const navigate = useNavigate();
 
 	return (
