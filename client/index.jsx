@@ -307,7 +307,7 @@ function LoginCallback({ setUser }) {
 			<h1>Please wait... ⏳</h1>
 			<p>
 				<Link to="/login" className="not-found-back">
-					If nothing happens, try logging in again. 🗝️
+					If nothing happens, try logging in again 🗝️
 				</Link>
 			</p>
 		</div>
