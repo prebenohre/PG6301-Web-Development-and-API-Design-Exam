@@ -4,7 +4,7 @@
 
 **Github repository:** https://github.com/kristiania-pg6301-2023/pg6301-resit2024H2-prebenohre
 
-**Testcoverage:** 
+**Testcoverage:** https://github.com/kristiania-pg6301-2023/pg6301-resit2024H2-prebenohre/commit/e3a54a6be8414e83a7f81b5fe7994f6ac093462b (ingen testdekning)
 
 **Kandidatnummer:** 13
 
@@ -19,7 +19,8 @@
 - [x] Lagring, henting og endring av data i Mongodb
 - [x] Login med OpenID Connect med Google
 - [x] Web Sockets
-- [] Test coverage på 50-70% eller bedre dokumentert med Github Actions
+- [ ] Test coverage på 50-70% eller bedre dokumentert med Github Actions
+ - *Fikk til å dokumentere at jeg ikke fikk til testing.*
 - For å oppnå A må alle 9 av disse være dekket
 - For å oppnå B må 8 av disse være dekket
 - For å oppnå C må 6-7 av disse være dekket
@@ -46,22 +47,24 @@
 #### Må-ha:
 - [x] Besvarelsen skal inneholde en README-fil med link til Heroku og test coverage
 - [x] `npm start` skal starte server og klient. Concurrently og parcel anbefales
-- [ ] `npm test` skal kjøre tester. Testene skal ikke feile
+- [x] `npm test` skal kjøre tester. Testene skal ikke feile
+  - *`npm test` kjører to dummy-tester som ikke feiler.*
 - [x] Koden skal ha konsistent formattering. Prettier og Husky anbefales
 - [x] Nettsidene skal ha god layout med CSS Grid og horisontal navigasjonsmeny. Brukeren må kunne navigere overalt uten å bruke "back" eller redigere URL
   - *Valgte å bruke flexbox istedenfor grid, men dekker ellers kravet.*
 - [x] Serveren validerer at brukeren er logget inn
-- [ ] Innleveringen skal være i form av en ZIP-fil. Maks størrelse på fila er 1MB
+- [x] Innleveringen skal være i form av en ZIP-fil. Maks størrelse på fila er 1MB
 - [x] Data skal lagres i MongoDB
 - [x] Applikasjonen skal deployes til Heroku
 - [x] Testene skal kjøre på Github Actions
 
 #### Bør-ha:
-- [x] Github Actions bør beregne testcoverage. Testdekningen bør være over 50%. Bruk `collectCoverageFrom` for å inkludere *alle* filer. Kun genererte filer som `coverage` og `dist` skal ekskluderes.
-  - *Konfigurasjonen skal være korrekt, men jeg har ikke test dekning.*
+- [ ] Github Actions bør beregne testcoverage. Testdekningen bør være over 50%. Bruk `collectCoverageFrom` for å inkludere *alle* filer. Kun genererte filer som `coverage` og `dist` skal ekskluderes.
+  - *Konfigurasjonen skal være korrekt, men jeg har ingen test dekning.*
 - [x] Brukere bør alltid se listen over artikler når de navigerer seg rundt på sidene
   - *Jeg valgte å lage en LatestNewsBanner som viser de siste 3 nyhetsartiklene uansett hvor man navigerer seg. Man kan klikke på den for å gå tilbake til forsiden.*
 - [ ] Brukere kan logge seg på med mer enn én OpenID Connect Provider (for eksempel Entra ID, Facebook, LinkedIn, GitHub)
+  - *Dette fikk jeg ikke tid til*
 
 
 

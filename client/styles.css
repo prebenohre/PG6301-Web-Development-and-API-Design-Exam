@@ -2,8 +2,7 @@ body {
 	font-family: Arial, sans-serif;
 	margin: 0;
 	padding: 0;
-	background: linear-gradient(to bottom, #1f1f1f 60%, #454f45 200%);
-	background-attachment: fixed;
+	background: linear-gradient(to bottom, #1f1f1f 60%, #454f45 200%) fixed;
 	color: white;
 }
 
@@ -14,7 +13,6 @@ body {
 }
 
 .navbar {
-	position: -webkit-sticky;
 	position: sticky;
 	top: 0;
 	z-index: 1000;
@@ -46,7 +44,6 @@ body {
 	box-sizing: border-box;
 }
 
-/* Generisk knappestil */
 .primary-button {
 	display: inline-block;
 	background-color: #4caf50;
@@ -312,7 +309,7 @@ textarea.article-input {
 }
 
 .login-separator::before,
-login-separator::after {
+.login-separator::after {
 	content: "";
 	flex: 1;
 	border-bottom: 1px solid #4a4a4a;
@@ -394,7 +391,6 @@ login-separator::after {
 }
 
 .latest-news-banner {
-	position: -webkit-sticky;
 	position: sticky;
 	top: 54px;
 	z-index: 999;
@@ -421,8 +417,6 @@ login-separator::after {
 .no-articles {
 	color: red;
 }
-
-/* styles.css */
 
 .not-found-container {
 	margin-top: 20px;

@@ -51,7 +51,7 @@ export function createNewsRoutes(newsCollection) {
 				category,
 				timestamp,
 				author: userinfo.name,
-				authorPicture: userinfo.picture, // Add author's profile picture
+				authorPicture: userinfo.picture,
 			};
 			const result = await newsCollection.insertOne(newArticle);
 			const articleWithId = { _id: result.insertedId, ...newArticle };
