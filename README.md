@@ -59,7 +59,7 @@
 #### Bør-ha:
 - [ ] Github Actions bør beregne testcoverage. Testdekningen bør være over 50%. Bruk `collectCoverageFrom` for å inkludere *alle* filer. Kun genererte filer som `coverage` og `dist` skal ekskluderes.
 - [x] Brukere bør alltid se listen over artikler når de navigerer seg rundt på sidene
-  - * Jeg valgte å lage en LatestNewsBanner som viser de siste 3 nyhetsartiklene uansett hvor man navigerer seg. Man kan klikke på den for å gå tilbake til forsiden.*
+  - *Jeg valgte å lage en LatestNewsBanner som viser de siste 3 nyhetsartiklene uansett hvor man navigerer seg. Man kan klikke på den for å gå tilbake til forsiden.*
 - [ ] Brukere kan logge seg på med mer enn én OpenID Connect Provider (for eksempel Entra ID, Facebook, LinkedIn, GitHub)
 
 
