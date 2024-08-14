@@ -387,3 +387,28 @@ login-separator::after {
 .profile-info p + p {
 	margin-top: 15px;
 }
+
+.latest-news-banner {
+	background-color: #b4cb4f;
+	color: black;
+	padding: 5px;
+	text-align: center;
+	cursor: pointer;
+	font-weight: bold;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.latest-news-text {
+	color: #a92929;
+	margin-right: 10px;
+}
+
+.article-title {
+	margin: 0 10px;
+}
+
+.no-articles {
+	color: red;
+}

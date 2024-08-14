@@ -9,7 +9,7 @@ const categories = ["Choose category...", "Politics", "Economy", "Technology", "
 // ===========================
 // Navbar Component
 // ===========================
-function Navbar({ user, onLogout }) {
+export function Navbar({ user, onLogout }) {
 	const navigate = useNavigate();
 
 	return (
@@ -34,6 +34,95 @@ function Navbar({ user, onLogout }) {
 				)}
 			</div>
 		</nav>
+	);
+}
+
+//===========================
+// LatestNewsBanner Component
+//===========================
+export function LatestNewsBanner() {
+	const [articles, setArticles] = useState([]);
+	const navigate = useNavigate();
+	const wsRef = useRef(null);
+
+	useEffect(() => {
+		const fetchLatestArticles = async () => {
+			try {
+				const response = await fetch("/api/news");
+				if (!response.ok) throw new Error("Failed to fetch news articles");
+				const data = await response.json();
+				const latestThreeArticles = data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)).slice(0, 3);
+				setArticles(latestThreeArticles);
+			} catch (error) {
+				console.error("Error fetching latest news articles:", error);
+			}
+		};
+
+		fetchLatestArticles();
+
+		function connectWebSocket() {
+			wsRef.current = new WebSocket(
+				`${window.location.protocol === "https:" ? "wss:" : "ws:"}//${window.location.host}`
+			);
+
+			wsRef.current.onmessage = event => {
+				const message = JSON.parse(event.data);
+				switch (message.type) {
+					case "newsAdded":
+						setArticles(prevArticles => {
+							const updatedArticles = [{ ...message.data }, ...prevArticles].slice(0, 3);
+							return updatedArticles;
+						});
+						break;
+					case "newsUpdated":
+						setArticles(prevArticles => {
+							const updatedArticles = prevArticles
+								.map(article => (article._id === message.data._id ? { ...article, ...message.data } : article))
+								.slice(0, 3);
+							return updatedArticles;
+						});
+						break;
+					case "newsDeleted":
+						fetchLatestArticles(); // Fetch the latest articles after a deletion
+						break;
+					default:
+						break;
+				}
+			};
+
+			wsRef.current.onclose = () => {
+				console.log("WebSocket disconnected. Trying to reconnect...");
+				setTimeout(connectWebSocket, 3000);
+			};
+
+			wsRef.current.onerror = error => {
+				console.error("WebSocket error:", error);
+				wsRef.current.close();
+			};
+		}
+
+		connectWebSocket();
+
+		return () => {
+			if (wsRef.current) wsRef.current.close();
+		};
+	}, []);
+
+	return (
+		<div className="latest-news-banner" onClick={() => navigate("/")}>
+			<span className="latest-news-text">
+				<strong>Latest News:</strong>
+			</span>
+			{articles.length > 0 ? (
+				articles.map((article, index) => (
+					<span key={index} className="article-title">
+						{article.title}
+					</span>
+				))
+			) : (
+				<span className="no-articles">No articles registered yet</span>
+			)}
+		</div>
 	);
 }
 
@@ -127,6 +216,7 @@ function App() {
 		<Router>
 			<div className="app">
 				<Navbar user={user} onLogout={handleLogout} />
+				<LatestNewsBanner />
 				<div className="content">
 					<Routes>
 						<Route path="/" element={<NewsList user={user} articles={articles} setArticles={setArticles} />} />
