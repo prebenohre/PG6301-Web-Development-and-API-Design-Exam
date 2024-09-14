@@ -1,4 +1,4 @@
-# PG6301 Kontinuasjonksamen H2024
+# PG6301 Webutvikling og API-design eksamen H2024
 
 **App deployet på Heroku:** https://pg6301-exam-news-app-a622156424c6.herokuapp.com/
 
