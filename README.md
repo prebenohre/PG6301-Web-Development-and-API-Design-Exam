@@ -2,12 +2,6 @@
 
 **App deployet på Heroku:** https://pg6301-exam-news-app-a622156424c6.herokuapp.com/
 
-**Github repository:** https://github.com/kristiania-pg6301-2023/pg6301-resit2024H2-prebenohre
-
-**Testcoverage:** https://github.com/kristiania-pg6301-2023/pg6301-resit2024H2-prebenohre/commit/e3a54a6be8414e83a7f81b5fe7994f6ac093462b (ingen testdekning)
-
-**Kandidatnummer:** 13
-
 ## Sjekkliste
 
 ### Læringsmål:
@@ -19,13 +13,6 @@
 - [x] Lagring, henting og endring av data i Mongodb
 - [x] Login med OpenID Connect med Google
 - [x] Web Sockets
-- [ ] Test coverage på 50-70% eller bedre dokumentert med Github Actions
- - *Fikk til å dokumentere at jeg ikke fikk til testing.*
-- For å oppnå A må alle 9 av disse være dekket
-- For å oppnå B må 8 av disse være dekket
-- For å oppnå C må 6-7 av disse være dekket
-- For å oppnå D må 4-5 av disse være dekket
-- For å oppnå E må 2-3 av disse være dekket og applikasjonen må enten kjøre på Heroku eller `npm install && npm test && npm start` må kjøre uten feil og gi en brukbar applikasjon.
 
 ### Funksjonelle krav:
 - [x] Når en ny sak publiseres, skal alle brukerne få se den nye saken umiddelbart (bruk websockets for å sende oppdateringer)
@@ -41,10 +28,9 @@
 - [x] En bruker skal kunne redigere en artikkel de selv har publisert
 - [x] En bruker skal kunne slette en bruker de selv har publisert
   - *Her antar jeg at det er en skrivefeil og at det egentlig menes at brukeren skal kunne slette sin egen artikkel*
-- [x] Alle feil fra serveres skal presenteres til bruker på en pen måte, med mulighet for brukeren til å prøve igjen
+- [x] Alle feil fra server skal presenteres til bruker på en pen måte, med mulighet for brukeren til å prøve igjen
 
 ### Tekniske krav:
-#### Må-ha:
 - [x] Besvarelsen skal inneholde en README-fil med link til Heroku og test coverage
 - [x] `npm start` skal starte server og klient. Concurrently og parcel anbefales
 - [x] `npm test` skal kjøre tester. Testene skal ikke feile
@@ -56,15 +42,6 @@
 - [x] Innleveringen skal være i form av en ZIP-fil. Maks størrelse på fila er 1MB
 - [x] Data skal lagres i MongoDB
 - [x] Applikasjonen skal deployes til Heroku
-- [x] Testene skal kjøre på Github Actions
-
-#### Bør-ha:
-- [ ] Github Actions bør beregne testcoverage. Testdekningen bør være over 50%. Bruk `collectCoverageFrom` for å inkludere *alle* filer. Kun genererte filer som `coverage` og `dist` skal ekskluderes.
-  - *Konfigurasjonen skal være korrekt, men jeg har ingen test dekning.*
-- [x] Brukere bør alltid se listen over artikler når de navigerer seg rundt på sidene
-  - *Jeg valgte å lage en LatestNewsBanner som viser de siste 3 nyhetsartiklene uansett hvor man navigerer seg. Man kan klikke på den for å gå tilbake til forsiden.*
-- [ ] Brukere kan logge seg på med mer enn én OpenID Connect Provider (for eksempel Entra ID, Facebook, LinkedIn, GitHub)
-  - *Dette fikk jeg ikke tid til*
 
 
 
