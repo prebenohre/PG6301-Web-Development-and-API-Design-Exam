@@ -1,6 +1,6 @@
 # PG6301 Webutvikling og API-design eksamen H2024
 
-**App deployet på Heroku:** https://pg6301-exam-news-app-a622156424c6.herokuapp.com/
+**Live Demo:** [https://pg6301-exam-news-app-a622156424c6.herokuapp.com/](https://prebenohre-news-app-5f582d81bfce.herokuapp.com/)
 
 ## Sjekkliste
 
